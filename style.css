@@ -1,0 +1,80 @@
+body {
+    font-family: Calibri, sans-serif;
+    font-size: 100%;
+    line-height: 160%;
+}
+
+.border {
+    max-width: 999px;
+    margin: 0 auto;
+    box-shadow: 0 0 100px #888;
+    padding: 10px;
+}
+
+h1, h2, h3 {
+    padding: 5px 5px 5px 1em;
+}
+
+p {
+    padding: 5px 5px 5px 3em;
+}
+
+h1 {
+    text-align: center;
+    counter-reset: subheading;
+}
+
+h2 {
+    background-color: lightblue;
+    margin-top: 2em;
+    counter-reset: subheading;
+}
+
+h3 {
+    background-color: cadetblue;
+}
+
+a, a:active, a:visited {
+    color: #0031ec;
+}
+
+a:hover {
+    color: #ec0000;
+}
+
+.er-diagram-div {
+    text-align: center;
+}
+
+.er-diagram-img {
+    width: 100%;
+    max-width: 55em;
+}
+
+#page {
+    counter-reset: heading;
+}
+
+h2:before {
+    content: counter(heading) ") ";
+    counter-increment: heading;
+}
+
+h3:before {
+    content: counter(heading) "." counter(subheading) ") ";
+    counter-increment: subheading;
+}
+
+.info {
+    text-align: center;
+    font-style: italic;
+    font-size: 20px;
+    background-color: yellow;
+    padding: 1em;
+}
+
+.description {
+    text-align: center;
+    font-size: 1.3em;
+    margin-top: 1em;
+}

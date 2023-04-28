@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8"/>
+    <title>NoSQL Semestrální projekt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="border" id="page">
+    <h1>Databáze hodnocení filmů</h1>
+
+    <div class="description">
+        <p>Databáze je zamýšlena jako databáze pro webovou aplikaci podobnou IMDB nebo ČSFD. Uživatelé si 
+        zde založí účet a poté mohou přidávat recenze s hodnocením k filmům, které viděli. Na filmy jsou také 
+        navázáni herci a režisér, takže je možné si jednodušše prohlédnout všechny filmy kde herec hraje, nebo 
+        které režíroval konkretní režisér.</p>
+        <p><b>SW:</b></p>
+        <p>Enterprise Architect - tvorba E-R</p>
+        <p>MongoDB - databáze</p>
+        <p>Mongo Express - vizualizace databáze</p>
+    </div>
+
+
+    <h2>E-R diagram</h2>
+    <div class="er-diagram-div">
+        <a href="ER_model.png">
+            <img alt="E-R diagram" class="er-diagram-img" src="1.ER_model.png" title="E-R diagram"/>
+        </a>
+    </div>
+
+    <h2>docker-compose</h2>
+    <ul>
+        <li><a href="2. Docker/docker-compose.yaml">docker-compose.yaml</a></li>
+    </ul>
+
+    <h2>Popis validačních schémat</h2>
+    <ul>
+        <li><a href="3.validation.html">validation.html</a></li>
+    </ul>    
+
+    <h2>Vytvoření databázového schématu</h2>
+    <ul>
+        <li><a href="4.vytvor_db_schema.js">vytvor_db_schema.js</a></li>
+    </ul>
+
+    <h2>Vložení (testovacích) dat</h2>
+    <ul>
+        <li><a href="5.vloz_data.js">vloz_data.js</a></li>
+    </ul>
+
+    <h2>Návrh API</h2>
+    <h3>&lt;Proces 1&gt;</h3>
+    <p>Popis business logiky procesu 1</p>
+    <h3>Vypůjčení knihy z knihovny</h3>
+    <ul>
+        <li>
+            Popis
+            <ul>
+                <li>Přidání informace o vypůjčené knize k zákazníkovi knihovny</li>
+            </ul>
+        </li>
+        <li>
+            Vstupy
+            <ul>
+                <li>Emailová adresa uživatele</li>
+                <li>Název knihy pro vypůjčení</li>
+            </ul>
+        </li>
+        <li>
+            Výstup
+            <ul>
+                <li>Databázový záznam (dokument) uživatele</li>
+            </ul>
+        </li>
+        <li>
+            Business logika
+            <ul>
+                <li>Vyhledání uživatele dle emailové adresy v kolekci '<i>uzivatele</i>'</li>
+                <li>Vyhledání knihy dle jejího názvu v kolekci '<i>knihy</i>'</li>
+                <li>Nalezenému uživateli nastavit informaci o vypůjčené knize (například přidáním id knihy do atributu
+                    uživatele '<i>vypujcene_knihy</i>')
+                </li>
+                <li>Nastavení atributu knihy '<i>vypujceno</i>' na <i>true</i></li>
+                <li>Změny v záznamu uživatele a knihy uložit do databáze</li>
+                <li>Vrátit (/ vypsat) záznam uživatele s informací o vypůjčených knihách</li>
+            </ul>
+        </li>
+        <li>
+            Skript
+            <ul>
+                <li><a href="">api_1_vypujceni_knihy.js</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Dotazy nad schématem</h2>
+    <ul>
+        <li>Dotaz 1
+            <ul>
+                <li>Seznam všech letadel na určitém letišti k určitému datu</li>
+            </ul>
+        </li>
+        <li>Dotaz 2
+            <ul>
+                <li>Zjištění počtu volných míst pro určitý let</li>
+            </ul>
+        </li>
+        <li>Dotaz 3
+            <ul>
+                <li>Seznam (jméno, příjmení, město, ulice, číslo popisné) všech zákazníků kteří letí určitým letem</li>
+            </ul>
+        </li>
+        <li>Dotaz 4 (agregace)
+            <ul>
+                <li>Načtení všech států seřazených ve vzestupném pořadí dle názvu, jejichž celková populace (součet
+                    počtu obyvatel jednotlivých měst) přesahuje 10 milionů
+                </li>
+            </ul>
+        </li>
+        <li>Dotaz 5 (agregace)
+            <ul>
+                <li>Vyhledání pěti největších a pěti nejmenších měst dle populace pro každý stát v Evropě. Státy budou
+                    seřazeny ve vzestupném pořadí dle názvu. U každého města bude uveden název a populace.
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Skripty s navrženými dotazy nad schématem</h2>
+    <ul>
+        <li>Dotaz 1
+            <ul>
+                <li><a href="">dotaz_1.js</a></li>
+                <li><a href="">dotaz_1_vystup.txt</a></li>
+            </ul>
+        </li>
+        <li>Dotaz 2
+            <ul>
+                <li>
+                    Verze 1
+                    <ul>
+                        <li><a href="">dotaz_2_1.js</a></li>
+                        <li><a href="">dotaz_2_1_vystup.txt</a></li>
+                    </ul>
+                </li>
+                <li>
+                    Verze 2
+                    <ul>
+                        <li><a href="">dotaz_2_2.js</a></li>
+                        <li><a href="">dotaz_2_2_vystup.txt</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Dotaz 3
+            <ul>
+                <li>
+                    Verze 1
+                    <ul>
+                        <li><a href="">dotaz_3_1.js</a></li>
+                        <li><a href="">dotaz_3_1_vystup.txt</a></li>
+                    </ul>
+                </li>
+                <li>
+                    Verze 2
+                    <ul>
+                        <li><a href="">dotaz_3_2.js</a></li>
+                        <li><a href="">dotaz_3_2_vystup.txt</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>Dotaz 4 (agregace)
+            <ul>
+                <li><a href="">dotaz_4.js</a></li>
+                <li><a href="">dotaz_4_vystup.txt</a></li>
+            </ul>
+        </li>
+        <li>Dotaz 5 (agregace)
+            <ul>
+                <li><a href="">dotaz_5.js</a></li>
+                <li><a href="">dotaz_5_vystup.txt</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Porušení validace</h2>
+    <ul>
+        <li>
+            <a href="">poruseni_validace.js</a>
+        </li>
+        <li>
+            <a href="">poruseni_validace_vystup.txt</a>
+        </li>
+    </ul>
+
+    <h2>Záloha databáze</h2>
+    <ul>
+        <li>
+            <a href="">zaloha_db.js</a>
+        </li>
+        <li>
+            <a href="">zaloha_db_vystup.txt</a>
+        </li>
+    </ul>
+
+    <h2>Vyčištění databáze</h2>
+    <ul>
+        <li>
+            <a href="11.smazat_db.js">smazat_db.js</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

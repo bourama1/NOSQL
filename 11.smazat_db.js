@@ -1,0 +1,2 @@
+use movieDB; 
+db.dropDatabase();
