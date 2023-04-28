@@ -32,3 +32,40 @@ db.movies.insertMany([
     {title: "The Godfather", director: ObjectId("644aceda87a358bf924e809e"), releaseDate: new Date("1972-03-24"), averageRating: 9.2},
     {title: "Django Unchained", director: ObjectId("644aceda87a358bf924e809e"), releaseDate: new Date("2012-12-25"), averageRating: 8.4},
   ])  
+  
+  db.movies.insertMany([
+    {
+      "_id": 1,
+      "averageRating": 6.6,
+      "director": ObjectId("208"),
+      "releaseDate": new Date(2009-06-01),
+      "title": "adipiscing"
+    },
+    {
+      "_id": 2,
+      "averageRating": 6.7,
+      "director": ObjectId("206"),
+      "releaseDate": new Date(2013-07-16),
+      "title": "aliquam adipiscing lacus."
+    },
+    {
+      "_id": 3,
+      "averageRating": 5.4,
+      "director": ObjectId("208"),
+      "releaseDate": new Date(1980-06-14),
+      "title": "Proin"
+    },
+    {
+      "_id": 4,
+      "averageRating": 6.0,
+      "director": ObjectId("470"),
+      "releaseDate": new Date(2000-03-08),
+      "title": "blandit at,"
+    },
+    {
+      "_id": 5,
+      "averageRating": 3.3,
+      "director": ObjectId("76"),
+      "releaseDate": new Date(1975-09-06),
+      "title": "sed pede."
+    }
