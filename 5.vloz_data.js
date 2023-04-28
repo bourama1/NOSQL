@@ -32,7 +32,7 @@ db.movies.insertMany([
     {title: "The Godfather", director: ObjectId("644aceda87a358bf924e809e"), releaseDate: new Date("1972-03-24"), averageRating: 9.2},
     {title: "Django Unchained", director: ObjectId("644aceda87a358bf924e809e"), releaseDate: new Date("2012-12-25"), averageRating: 8.4},
   ])  
-  
+
   db.movies.insertMany([
     {
       "_id": 1,
@@ -69,3 +69,4 @@ db.movies.insertMany([
       "releaseDate": new Date(1975-09-06),
       "title": "sed pede."
     }
+  ]);
