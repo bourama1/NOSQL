@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8"/>
+    <title>NoSQL Semestrální projekt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="border" id="page">
+        <h2>&lt;Vypůjčení knihy z knihovny&gt;</h2>
+        <ul>
+            <li>
+                Popis
+                <ul>
+                    <li>Přidání informace o vypůjčené knize k zákazníkovi knihovny</li>
+                </ul>
+            </li>
+            <li>
+                Vstupy
+                <ul>
+                    <li>Emailová adresa uživatele</li>
+                    <li>Název knihy pro vypůjčení</li>
+                </ul>
+            </li>
+            <li>
+                Výstup
+                <ul>
+                    <li>Databázový záznam (dokument) uživatele</li>
+                </ul>
+            </li>
+            <li>
+                Business logika
+                <ul>
+                    <li>Vyhledání uživatele dle emailové adresy v kolekci '<i>uzivatele</i>'</li>
+                    <li>Vyhledání knihy dle jejího názvu v kolekci '<i>knihy</i>'</li>
+                    <li>Nalezenému uživateli nastavit informaci o vypůjčené knize (například přidáním id knihy do atributu
+                        uživatele '<i>vypujcene_knihy</i>')
+                    </li>
+                    <li>Nastavení atributu knihy '<i>vypujceno</i>' na <i>true</i></li>
+                    <li>Změny v záznamu uživatele a knihy uložit do databáze</li>
+                    <li>Vrátit (/ vypsat) záznam uživatele s informací o vypůjčených knihách</li>
+                </ul>
+            </li>
+            <li>
+                Skript
+                <ul>
+                    <li><a href="">api_1_vypujceni_knihy.js</a></li>
+                </ul>
+            </li>
+        </ul>
+        <h2>&lt;example&gt;</h2>
+    </div>
+</body>
+</html>
