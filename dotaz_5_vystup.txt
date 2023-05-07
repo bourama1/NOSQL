@@ -1,10 +1,10 @@
 Vysledek:
 [
+  { averageRating: 2.5, title: 'Avatar' },
   { averageRating: 3.3, title: 'sed pede.' },
   { averageRating: 4.5, title: 'Taky' },
   { averageRating: 5.4, title: 'Proin' },
-  { averageRating: 6.1, title: 'blandit at,' },
-  { averageRating: 6.6, title: 'adipiscing' }
+  { averageRating: 6.1, title: 'blandit at,' }
 ]
 
 Srovnani dotazu:
@@ -28,53 +28,52 @@ Exekucni plan prvniho dotazu:
           maxScansToExplodeReached: false,
           winningPlan: {
             stage: 'PROJECTION_SIMPLE',
-            transformBy: { averageRating: true, title: true, _id: false },
+            transformBy: { title: true, averageRating: true, _id: false },
             inputStage: { stage: 'COLLSCAN', direction: 'forward' }
           },
           rejectedPlans: []
         },
         executionStats: {
           executionSuccess: true,
-          nReturned: 7,
+          nReturned: 10,
           executionTimeMillis: 0,
           totalKeysExamined: 0,
-          totalDocsExamined: 7,
+          totalDocsExamined: 10,
           executionStages: {
             stage: 'PROJECTION_SIMPLE',
-            nReturned: 7,
+            nReturned: 10,
             executionTimeMillisEstimate: 0,
-            works: 9,
-            advanced: 7,
+            works: 12,
+            advanced: 10,
             needTime: 1,
             needYield: 0,
             saveState: 1,
             restoreState: 1,
             isEOF: 1,
-            transformBy: { averageRating: true, title: true, _id: false },
+            transformBy: { title: true, averageRating: true, _id: false },
             inputStage: {
               stage: 'COLLSCAN',
-              nReturned: 7,
+              nReturned: 10,
               executionTimeMillisEstimate: 0,
-              works: 9,
-              advanced: 7,
+              works: 12,
+              advanced: 10,
               needTime: 1,
               needYield: 0,
               saveState: 1,
               restoreState: 1,
               isEOF: 1,
               direction: 'forward',
-              docsExamined: 7
+              docsExamined: 10
             }
-          },
-          allPlansExecution: []
+          }
         }
       },
-      nReturned: Long("7"),
+      nReturned: Long("10"),
       executionTimeMillisEstimate: Long("0")
     },
     {
       '$sort': { sortKey: { averageRating: 1, title: 1 }, limit: Long("5") },
-      totalDataSizeSortedBytesEstimate: Long("1435"),
+      totalDataSizeSortedBytesEstimate: Long("1895"),
       usedDisk: false,
       spills: Long("0"),
       nReturned: Long("5"),

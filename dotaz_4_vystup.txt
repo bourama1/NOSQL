@@ -1,18 +1,21 @@
 Vysledek:
 [
-  { title: 'Dotaz 2012', numReviews: 0 },
-  { title: 'Proin', numReviews: 0 },
-  { title: 'Taky', numReviews: 0 },
+  { title: 'Avatar', numReviews: 1 },
+  { title: 'Dotaz 2012', numReviews: 1 },
+  { title: 'Drak', numReviews: 1 },
+  { title: 'Proin', numReviews: 1 },
+  { title: 'Random', numReviews: 1 },
+  { title: 'Taky', numReviews: 2 },
   { title: 'adipiscing', numReviews: 2 },
-  { title: 'aliquam adipiscing', numReviews: 1 },
-  { title: 'blandit at,', numReviews: 0 },
-  { title: 'sed pede.', numReviews: 0 }
+  { title: 'aliquam adipiscing', numReviews: 2 },
+  { title: 'blandit at,', numReviews: 1 },
+  { title: 'sed pede.', numReviews: 1 }
 ]
 
 Srovnani dotazu:
-Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 10
-Druhy dotaz ma executionTimeMillis = 1 a totalDocsExamined = 5
-Takze co se tyce casu je prvni dotaz lepsi, ale co se tyka prozkoumanych dokumentu je tomu naopak.
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 23
+Druhy dotaz ma executionTimeMillis = 1 a totalDocsExamined = 23
+Oba dotazy prozkoumali stejne mnozstvi zaznamu, ale prvni to udelal rychleji.
 
 Exekucni plan prvniho dotazu:
 {
@@ -51,7 +54,7 @@ Exekucni plan prvniho dotazu:
               }
             },
             slotBasedPlan: {
-              slots: '$$RESULT=s24 env: { s1 = TimeZoneDatabase(Etc/Zulu...Europe/Kiev) (timeZoneDB), s2 = Nothing (SEARCH_META), s3 = 1683469688960 (NOW) }',
+              slots: '$$RESULT=s24 env: { s3 = 1683476491966 (NOW), s1 = TimeZoneDatabase(Etc/Zulu...Europe/Kiev) (timeZoneDB), s2 = Nothing (SEARCH_META) }',
               stages: '[3] mkobj s24 s6 [] drop [reviews = s23] true false \n' +
                 '[3] project [s23 = fillEmpty (s22, [])] \n' +
                 '[3] hash_lookup [s22 = addToArray (s7)] \n' +
@@ -59,7 +62,7 @@ Exekucni plan prvniho dotazu:
                 '        [3] nlj [s6] [s6] \n' +
                 '            left \n' +
                 '                [2] mkbson s6 s4 [_id, reviews, title] keep [] true false \n' +
-                '                [1] scan s4 s5 none none none none [] @"64f28425-eefd-442f-a09a-d7d1d029aea4" true false \n' +
+                '                [1] scan s4 s5 none none none none [] @"568fd60f-9c58-4d4e-8718-422e54fd663a" true false \n' +
                 '            right \n' +
                 '                [3] project [s14 = if (getArraySize (s12) > 0, s12, [null])] \n' +
                 '                [3] group [] [s12 = addToSet (s10)] spillSlots[s13] mergingExprs[aggSetUnion (s13)] \n' +
@@ -72,7 +75,7 @@ Exekucni plan prvniho dotazu:
                 '    inner s20 [s7] \n' +
                 '        [3] nlj [s7] [s7] \n' +
                 '            left \n' +
-                '                [3] scan s7 s8 none none none none [] @"7127947e-825b-4695-9a6b-e59f9e1ad66e" true false \n' +
+                '                [3] scan s7 s8 none none none none [] @"9c9fcace-042b-47af-9bd2-801494f2dc4f" true false \n' +
                 '            right \n' +
                 '                [3] group [] [s20 = addToSet (s19)] spillSlots[s21] mergingExprs[aggSetUnion (s21)] \n' +
                 '                [3] nlj [] [s15] \n' +
@@ -102,14 +105,14 @@ Exekucni plan prvniho dotazu:
         },
         executionStats: {
           executionSuccess: true,
-          nReturned: 7,
+          nReturned: 10,
           executionTimeMillis: 0,
           totalKeysExamined: 0,
-          totalDocsExamined: 10,
+          totalDocsExamined: 23,
           executionStages: {
             stage: 'mkobj',
             planNodeId: 3,
-            nReturned: 7,
+            nReturned: 10,
             executionTimeMillisEstimate: 0,
             opens: 1,
             closes: 1,
@@ -127,7 +130,7 @@ Exekucni plan prvniho dotazu:
             inputStage: {
               stage: 'project',
               planNodeId: 3,
-              nReturned: 7,
+              nReturned: 10,
               executionTimeMillisEstimate: 0,
               opens: 1,
               closes: 1,
@@ -138,14 +141,14 @@ Exekucni plan prvniho dotazu:
               inputStage: {
                 stage: 'hash_lookup',
                 planNodeId: 3,
-                nReturned: 7,
+                nReturned: 10,
                 executionTimeMillisEstimate: 0,
                 opens: 1,
                 closes: 1,
                 saveState: 1,
                 restoreState: 1,
                 isEOF: 1,
-                totalDocsExamined: 10,
+                totalDocsExamined: 23,
                 totalKeysExamined: 0,
                 collectionScans: 2,
                 collectionSeeks: 0,
@@ -159,28 +162,28 @@ Exekucni plan prvniho dotazu:
                   {
                     stage: 'nlj',
                     planNodeId: 3,
-                    nReturned: 7,
+                    nReturned: 10,
                     executionTimeMillisEstimate: 0,
                     opens: 1,
                     closes: 1,
                     saveState: 1,
                     restoreState: 1,
                     isEOF: 1,
-                    totalDocsExamined: 7,
+                    totalDocsExamined: 10,
                     totalKeysExamined: 0,
                     collectionScans: 1,
                     collectionSeeks: 0,
                     indexScans: 0,
                     indexSeeks: 0,
                     indexesUsed: [],
-                    innerOpens: 7,
+                    innerOpens: 10,
                     innerCloses: 1,
                     outerProjects: [ Long("6") ],
                     outerCorrelated: [ Long("6") ],
                     outerStage: {
                       stage: 'mkbson',
                       planNodeId: 2,
-                      nReturned: 7,
+                      nReturned: 10,
                       executionTimeMillisEstimate: 0,
                       opens: 1,
                       closes: 1,
@@ -198,14 +201,14 @@ Exekucni plan prvniho dotazu:
                       inputStage: {
                         stage: 'scan',
                         planNodeId: 1,
-                        nReturned: 7,
+                        nReturned: 10,
                         executionTimeMillisEstimate: 0,
                         opens: 1,
                         closes: 1,
                         saveState: 1,
                         restoreState: 1,
                         isEOF: 1,
-                        numReads: 7,
+                        numReads: 10,
                         recordSlot: 4,
                         recordIdSlot: 5,
                         fields: [],
@@ -215,9 +218,9 @@ Exekucni plan prvniho dotazu:
                     innerStage: {
                       stage: 'project',
                       planNodeId: 3,
-                      nReturned: 7,
+                      nReturned: 10,
                       executionTimeMillisEstimate: 0,
-                      opens: 7,
+                      opens: 10,
                       closes: 1,
                       saveState: 1,
                       restoreState: 1,
@@ -228,9 +231,9 @@ Exekucni plan prvniho dotazu:
                       inputStage: {
                         stage: 'group',
                         planNodeId: 3,
-                        nReturned: 7,
+                        nReturned: 10,
                         executionTimeMillisEstimate: 0,
-                        opens: 7,
+                        opens: 10,
                         closes: 1,
                         saveState: 1,
                         restoreState: 1,
@@ -245,10 +248,10 @@ Exekucni plan prvniho dotazu:
                         inputStage: {
                           stage: 'unwind',
                           planNodeId: 3,
-                          nReturned: 7,
+                          nReturned: 10,
                           executionTimeMillisEstimate: 0,
-                          opens: 7,
-                          closes: 7,
+                          opens: 10,
+                          closes: 10,
                           saveState: 1,
                           restoreState: 1,
                           isEOF: 1,
@@ -259,10 +262,10 @@ Exekucni plan prvniho dotazu:
                           inputStage: {
                             stage: 'project',
                             planNodeId: 3,
-                            nReturned: 7,
+                            nReturned: 10,
                             executionTimeMillisEstimate: 0,
-                            opens: 7,
-                            closes: 7,
+                            opens: 10,
+                            closes: 10,
                             saveState: 1,
                             restoreState: 1,
                             isEOF: 1,
@@ -270,10 +273,10 @@ Exekucni plan prvniho dotazu:
                             inputStage: {
                               stage: 'limit',
                               planNodeId: 3,
-                              nReturned: 7,
+                              nReturned: 10,
                               executionTimeMillisEstimate: 0,
-                              opens: 7,
-                              closes: 7,
+                              opens: 10,
+                              closes: 10,
                               saveState: 1,
                               restoreState: 1,
                               isEOF: 1,
@@ -281,10 +284,10 @@ Exekucni plan prvniho dotazu:
                               inputStage: {
                                 stage: 'coscan',
                                 planNodeId: 3,
-                                nReturned: 7,
+                                nReturned: 10,
                                 executionTimeMillisEstimate: 0,
-                                opens: 7,
-                                closes: 7,
+                                opens: 10,
+                                closes: 10,
                                 saveState: 1,
                                 restoreState: 1,
                                 isEOF: 0
@@ -298,35 +301,35 @@ Exekucni plan prvniho dotazu:
                   {
                     stage: 'nlj',
                     planNodeId: 3,
-                    nReturned: 3,
+                    nReturned: 13,
                     executionTimeMillisEstimate: 0,
                     opens: 1,
                     closes: 1,
                     saveState: 1,
                     restoreState: 1,
                     isEOF: 1,
-                    totalDocsExamined: 3,
+                    totalDocsExamined: 13,
                     totalKeysExamined: 0,
                     collectionScans: 1,
                     collectionSeeks: 0,
                     indexScans: 0,
                     indexSeeks: 0,
                     indexesUsed: [],
-                    innerOpens: 3,
+                    innerOpens: 13,
                     innerCloses: 1,
                     outerProjects: [ Long("7") ],
                     outerCorrelated: [ Long("7") ],
                     outerStage: {
                       stage: 'scan',
                       planNodeId: 3,
-                      nReturned: 3,
+                      nReturned: 13,
                       executionTimeMillisEstimate: 0,
                       opens: 1,
                       closes: 1,
                       saveState: 1,
                       restoreState: 1,
                       isEOF: 1,
-                      numReads: 3,
+                      numReads: 13,
                       recordSlot: 7,
                       recordIdSlot: 8,
                       fields: [],
@@ -335,9 +338,9 @@ Exekucni plan prvniho dotazu:
                     innerStage: {
                       stage: 'group',
                       planNodeId: 3,
-                      nReturned: 3,
+                      nReturned: 13,
                       executionTimeMillisEstimate: 0,
-                      opens: 3,
+                      opens: 13,
                       closes: 1,
                       saveState: 1,
                       restoreState: 1,
@@ -352,10 +355,10 @@ Exekucni plan prvniho dotazu:
                       inputStage: {
                         stage: 'nlj',
                         planNodeId: 3,
-                        nReturned: 3,
+                        nReturned: 13,
                         executionTimeMillisEstimate: 0,
-                        opens: 3,
-                        closes: 3,
+                        opens: 13,
+                        closes: 13,
                         saveState: 1,
                         restoreState: 1,
                         isEOF: 1,
@@ -366,17 +369,17 @@ Exekucni plan prvniho dotazu:
                         indexScans: 0,
                         indexSeeks: 0,
                         indexesUsed: [],
-                        innerOpens: 3,
-                        innerCloses: 3,
+                        innerOpens: 13,
+                        innerCloses: 13,
                         outerProjects: [],
                         outerCorrelated: [ Long("15") ],
                         outerStage: {
                           stage: 'project',
                           planNodeId: 3,
-                          nReturned: 3,
+                          nReturned: 13,
                           executionTimeMillisEstimate: 0,
-                          opens: 3,
-                          closes: 3,
+                          opens: 13,
+                          closes: 13,
                           saveState: 1,
                           restoreState: 1,
                           isEOF: 1,
@@ -386,10 +389,10 @@ Exekucni plan prvniho dotazu:
                           inputStage: {
                             stage: 'limit',
                             planNodeId: 3,
-                            nReturned: 3,
+                            nReturned: 13,
                             executionTimeMillisEstimate: 0,
-                            opens: 3,
-                            closes: 3,
+                            opens: 13,
+                            closes: 13,
                             saveState: 1,
                             restoreState: 1,
                             isEOF: 1,
@@ -397,10 +400,10 @@ Exekucni plan prvniho dotazu:
                             inputStage: {
                               stage: 'coscan',
                               planNodeId: 3,
-                              nReturned: 3,
+                              nReturned: 13,
                               executionTimeMillisEstimate: 0,
-                              opens: 3,
-                              closes: 3,
+                              opens: 13,
+                              closes: 13,
                               saveState: 1,
                               restoreState: 1,
                               isEOF: 0
@@ -410,18 +413,18 @@ Exekucni plan prvniho dotazu:
                         innerStage: {
                           stage: 'branch',
                           planNodeId: 3,
-                          nReturned: 3,
+                          nReturned: 13,
                           executionTimeMillisEstimate: 0,
-                          opens: 3,
-                          closes: 3,
+                          opens: 13,
+                          closes: 13,
                           saveState: 1,
                           restoreState: 1,
                           isEOF: 1,
-                          numTested: 3,
+                          numTested: 13,
                           thenBranchOpens: 0,
                           thenBranchCloses: 0,
-                          elseBranchOpens: 3,
-                          elseBranchCloses: 3,
+                          elseBranchOpens: 13,
+                          elseBranchCloses: 13,
                           filter: 'isArray (s15) ',
                           thenSlots: [ Long("18") ],
                           elseSlots: [ Long("15") ],
@@ -505,10 +508,10 @@ Exekucni plan prvniho dotazu:
                           elseStage: {
                             stage: 'limit',
                             planNodeId: 3,
-                            nReturned: 3,
+                            nReturned: 13,
                             executionTimeMillisEstimate: 0,
-                            opens: 3,
-                            closes: 3,
+                            opens: 13,
+                            closes: 13,
                             saveState: 1,
                             restoreState: 1,
                             isEOF: 1,
@@ -516,10 +519,10 @@ Exekucni plan prvniho dotazu:
                             inputStage: {
                               stage: 'coscan',
                               planNodeId: 3,
-                              nReturned: 3,
+                              nReturned: 13,
                               executionTimeMillisEstimate: 0,
-                              opens: 3,
-                              closes: 3,
+                              opens: 13,
+                              closes: 13,
                               saveState: 1,
                               restoreState: 1,
                               isEOF: 0
@@ -532,11 +535,10 @@ Exekucni plan prvniho dotazu:
                 ]
               }
             }
-          },
-          allPlansExecution: []
+          }
         }
       },
-      nReturned: Long("7"),
+      nReturned: Long("10"),
       executionTimeMillisEstimate: Long("0")
     },
     {
@@ -545,15 +547,15 @@ Exekucni plan prvniho dotazu:
         numReviews: { '$size': [ '$reviews' ] },
         _id: false
       },
-      nReturned: Long("7"),
+      nReturned: Long("10"),
       executionTimeMillisEstimate: Long("0")
     },
     {
       '$sort': { sortKey: { title: 1 } },
-      totalDataSizeSortedBytesEstimate: Long("1783"),
+      totalDataSizeSortedBytesEstimate: Long("2518"),
       usedDisk: false,
       spills: Long("0"),
-      nReturned: Long("7"),
+      nReturned: Long("10"),
       executionTimeMillisEstimate: Long("0")
     }
   ],

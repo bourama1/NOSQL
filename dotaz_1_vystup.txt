@@ -17,8 +17,8 @@ Vysledek:
 ]
 
 Srovnani dotazu:
-Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
-Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 10
+Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 10
 
 Exekucni plan prvniho dotazu:
 {
@@ -27,29 +27,21 @@ Exekucni plan prvniho dotazu:
     namespace: 'movieDB.movies',
     indexFilterSet: false,
     parsedQuery: {
-      '$and': [
-        { releaseDate: { '$lt': ISODate("2013-01-01T00:00:00.000Z") } },
-        {
-          releaseDate: { '$gte': ISODate("2012-01-01T00:00:00.000Z") }
-        }
-      ]
+      '$expr': {
+        '$eq': [ { '$year': { date: '$releaseDate' } }, { '$const': 2012 } ]
+      }
     },
-    queryHash: 'A841C030',
-    planCacheKey: 'A841C030',
+    queryHash: '0E5B8002',
+    planCacheKey: '0E5B8002',
     maxIndexedOrSolutionsReached: false,
     maxIndexedAndSolutionsReached: false,
     maxScansToExplodeReached: false,
     winningPlan: {
       stage: 'COLLSCAN',
       filter: {
-        '$and': [
-          {
-            releaseDate: { '$lt': ISODate("2013-01-01T00:00:00.000Z") }
-          },
-          {
-            releaseDate: { '$gte': ISODate("2012-01-01T00:00:00.000Z") }
-          }
-        ]
+        '$expr': {
+          '$eq': [ { '$year': { date: '$releaseDate' } }, { '$const': 2012 } ]
+        }
       },
       direction: 'forward'
     },
@@ -58,10 +50,7 @@ Exekucni plan prvniho dotazu:
   command: {
     find: 'movies',
     filter: {
-      releaseDate: {
-        '$gte': ISODate("2012-01-01T00:00:00.000Z"),
-        '$lt': ISODate("2013-01-01T00:00:00.000Z")
-      }
+      '$expr': { '$eq': [ { '$year': '$releaseDate' }, 2012 ] }
     },
     '$db': 'movieDB'
   },
