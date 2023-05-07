@@ -1,0 +1,19 @@
+2023-05-07T13:17:06.456+0000    WARNING: On some systems, a password provided directly using --password may be visible to system status programs such as `ps` that may be invoked by other users. Consider omitting the password to provide it via stdin, or using the --config option to specify a configuration file with the password.
+2023-05-07T13:17:06.479+0000    writing admin.system.users to dump/admin/system.users.bson
+2023-05-07T13:17:06.480+0000    done dumping admin.system.users (1 document)
+2023-05-07T13:17:06.480+0000    writing admin.system.version to dump/admin/system.version.bson
+2023-05-07T13:17:06.481+0000    done dumping admin.system.version (2 documents)
+2023-05-07T13:17:06.482+0000    writing movieDB.movies to dump/movieDB/movies.bson
+2023-05-07T13:17:06.482+0000    writing movieDB.casts to dump/movieDB/casts.bson
+2023-05-07T13:17:06.483+0000    writing movieDB.reviews to dump/movieDB/reviews.bson
+2023-05-07T13:17:06.483+0000    writing movieDB.addresses to dump/movieDB/addresses.bson
+2023-05-07T13:17:06.484+0000    done dumping movieDB.movies (5 documents)
+2023-05-07T13:17:06.484+0000    done dumping movieDB.casts (4 documents)
+2023-05-07T13:17:06.484+0000    done dumping movieDB.addresses (4 documents)
+2023-05-07T13:17:06.484+0000    done dumping movieDB.reviews (4 documents)
+2023-05-07T13:17:06.484+0000    writing movieDB.users to dump/movieDB/users.bson
+2023-05-07T13:17:06.485+0000    writing movieDB.actors to dump/movieDB/actors.bson
+2023-05-07T13:17:06.485+0000    writing movieDB.directors to dump/movieDB/directors.bson
+2023-05-07T13:17:06.485+0000    done dumping movieDB.users (3 documents)
+2023-05-07T13:17:06.486+0000    done dumping movieDB.actors (2 documents)
+2023-05-07T13:17:06.486+0000    done dumping movieDB.directors (2 documents)
