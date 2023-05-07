@@ -11,7 +11,7 @@ Srovnani dotazu:
 Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
 Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
 
-Exekucni plan:
+Exekucni plan prvniho dotazu:
 {
   explainVersion: '1',
   stages: [

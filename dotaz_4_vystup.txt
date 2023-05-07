@@ -14,7 +14,7 @@ Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 10
 Druhy dotaz ma executionTimeMillis = 1 a totalDocsExamined = 5
 Takze co se tyce casu je prvni dotaz lepsi, ale co se tyka prozkoumanych dokumentu je tomu naopak.
 
-Exekucni plan:
+Exekucni plan prvniho dotazu:
 {
   explainVersion: '2',
   stages: [

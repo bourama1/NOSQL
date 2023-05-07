@@ -1,7 +1,7 @@
 Vysledek:
 [ { count: 2, username: 'test' }, { count: 1, username: 'admin' } ]
 
-Exekucni plan:
+Exekucni plan prvniho dotazu:
 {
   explainVersion: '2',
   stages: [
