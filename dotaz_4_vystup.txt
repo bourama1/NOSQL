@@ -1,0 +1,596 @@
+Vysledek:
+[
+  { title: 'Dotaz 2012', numReviews: 0 },
+  { title: 'Proin', numReviews: 0 },
+  { title: 'Taky', numReviews: 0 },
+  { title: 'adipiscing', numReviews: 2 },
+  { title: 'aliquam adipiscing', numReviews: 1 },
+  { title: 'blandit at,', numReviews: 0 },
+  { title: 'sed pede.', numReviews: 0 }
+]
+
+Srovnani dotazu:
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 10
+Druhy dotaz ma executionTimeMillis = 1 a totalDocsExamined = 5
+Takze co se tyce casu je prvni dotaz lepsi, ale co se tyka prozkoumanych dokumentu je tomu naopak.
+
+Exekucni plan:
+{
+  explainVersion: '2',
+  stages: [
+    {
+      '$cursor': {
+        queryPlanner: {
+          namespace: 'movieDB.movies',
+          indexFilterSet: false,
+          parsedQuery: {},
+          queryHash: '2894F07C',
+          planCacheKey: '2894F07C',
+          maxIndexedOrSolutionsReached: false,
+          maxIndexedAndSolutionsReached: false,
+          maxScansToExplodeReached: false,
+          winningPlan: {
+            queryPlan: {
+              stage: 'EQ_LOOKUP',
+              planNodeId: 3,
+              foreignCollection: 'movieDB.reviews',
+              localField: '_id',
+              foreignField: 'movie',
+              asField: 'reviews',
+              strategy: 'HashJoin',
+              inputStage: {
+                stage: 'PROJECTION_SIMPLE',
+                planNodeId: 2,
+                transformBy: { _id: true, reviews: true, title: true },
+                inputStage: {
+                  stage: 'COLLSCAN',
+                  planNodeId: 1,
+                  filter: {},
+                  direction: 'forward'
+                }
+              }
+            },
+            slotBasedPlan: {
+              slots: '$$RESULT=s24 env: { s1 = TimeZoneDatabase(Etc/Zulu...Europe/Kiev) (timeZoneDB), s2 = Nothing (SEARCH_META), s3 = 1683469688960 (NOW) }',
+              stages: '[3] mkobj s24 s6 [] drop [reviews = s23] true false \n' +
+                '[3] project [s23 = fillEmpty (s22, [])] \n' +
+                '[3] hash_lookup [s22 = addToArray (s7)] \n' +
+                '    outer s14 \n' +
+                '        [3] nlj [s6] [s6] \n' +
+                '            left \n' +
+                '                [2] mkbson s6 s4 [_id, reviews, title] keep [] true false \n' +
+                '                [1] scan s4 s5 none none none none [] @"64f28425-eefd-442f-a09a-d7d1d029aea4" true false \n' +
+                '            right \n' +
+                '                [3] project [s14 = if (getArraySize (s12) > 0, s12, [null])] \n' +
+                '                [3] group [] [s12 = addToSet (s10)] spillSlots[s13] mergingExprs[aggSetUnion (s13)] \n' +
+                '                [3] unwind s10 s11 s9 true \n' +
+                '                [3] project [s9 = getField (s6, "_id")] \n' +
+                '                [3] limit 1 \n' +
+                '                [3] coscan \n' +
+                '            \n' +
+                '        \n' +
+                '    inner s20 [s7] \n' +
+                '        [3] nlj [s7] [s7] \n' +
+                '            left \n' +
+                '                [3] scan s7 s8 none none none none [] @"7127947e-825b-4695-9a6b-e59f9e1ad66e" true false \n' +
+                '            right \n' +
+                '                [3] group [] [s20 = addToSet (s19)] spillSlots[s21] mergingExprs[aggSetUnion (s21)] \n' +
+                '                [3] nlj [] [s15] \n' +
+                '                    left \n' +
+                '                        [3] project [s15 = fillEmpty (getField (s7, "movie"), null)] \n' +
+                '                        [3] limit 1 \n' +
+                '                        [3] coscan \n' +
+                '                    right \n' +
+                '                        [3] branch {isArray (s15)} [s19] \n' +
+                '                        [s18] [3] union [s18] [\n' +
+                '                            [s16] [3] unwind s16 s17 s15 true \n' +
+                '                            [3] limit 1 \n' +
+                '                            [3] coscan , \n' +
+                '                            [s15] [3] limit 1 \n' +
+                '                            [3] coscan \n' +
+                '                       ] \n' +
+                '                        [s15] [3] limit 1 \n' +
+                '                        [3] coscan \n' +
+                '                    \n' +
+                '                \n' +
+                '            \n' +
+                '        \n' +
+                '    \n'
+            }
+          },
+          rejectedPlans: []
+        },
+        executionStats: {
+          executionSuccess: true,
+          nReturned: 7,
+          executionTimeMillis: 0,
+          totalKeysExamined: 0,
+          totalDocsExamined: 10,
+          executionStages: {
+            stage: 'mkobj',
+            planNodeId: 3,
+            nReturned: 7,
+            executionTimeMillisEstimate: 0,
+            opens: 1,
+            closes: 1,
+            saveState: 1,
+            restoreState: 1,
+            isEOF: 1,
+            objSlot: 24,
+            rootSlot: 6,
+            fieldBehavior: 'drop',
+            fields: [],
+            projectFields: [ 'reviews' ],
+            projectSlots: [ Long("23") ],
+            forceNewObject: true,
+            returnOldObject: false,
+            inputStage: {
+              stage: 'project',
+              planNodeId: 3,
+              nReturned: 7,
+              executionTimeMillisEstimate: 0,
+              opens: 1,
+              closes: 1,
+              saveState: 1,
+              restoreState: 1,
+              isEOF: 1,
+              projections: { '23': 'fillEmpty (s22, []) ' },
+              inputStage: {
+                stage: 'hash_lookup',
+                planNodeId: 3,
+                nReturned: 7,
+                executionTimeMillisEstimate: 0,
+                opens: 1,
+                closes: 1,
+                saveState: 1,
+                restoreState: 1,
+                isEOF: 1,
+                totalDocsExamined: 10,
+                totalKeysExamined: 0,
+                collectionScans: 2,
+                collectionSeeks: 0,
+                indexScans: 0,
+                indexSeeks: 0,
+                indexesUsed: [],
+                usedDisk: false,
+                spilledRecords: 0,
+                spilledBytesApprox: 0,
+                inputStages: [
+                  {
+                    stage: 'nlj',
+                    planNodeId: 3,
+                    nReturned: 7,
+                    executionTimeMillisEstimate: 0,
+                    opens: 1,
+                    closes: 1,
+                    saveState: 1,
+                    restoreState: 1,
+                    isEOF: 1,
+                    totalDocsExamined: 7,
+                    totalKeysExamined: 0,
+                    collectionScans: 1,
+                    collectionSeeks: 0,
+                    indexScans: 0,
+                    indexSeeks: 0,
+                    indexesUsed: [],
+                    innerOpens: 7,
+                    innerCloses: 1,
+                    outerProjects: [ Long("6") ],
+                    outerCorrelated: [ Long("6") ],
+                    outerStage: {
+                      stage: 'mkbson',
+                      planNodeId: 2,
+                      nReturned: 7,
+                      executionTimeMillisEstimate: 0,
+                      opens: 1,
+                      closes: 1,
+                      saveState: 1,
+                      restoreState: 1,
+                      isEOF: 1,
+                      objSlot: 6,
+                      rootSlot: 4,
+                      fieldBehavior: 'keep',
+                      fields: [ '_id', 'reviews', 'title' ],
+                      projectFields: [],
+                      projectSlots: [],
+                      forceNewObject: true,
+                      returnOldObject: false,
+                      inputStage: {
+                        stage: 'scan',
+                        planNodeId: 1,
+                        nReturned: 7,
+                        executionTimeMillisEstimate: 0,
+                        opens: 1,
+                        closes: 1,
+                        saveState: 1,
+                        restoreState: 1,
+                        isEOF: 1,
+                        numReads: 7,
+                        recordSlot: 4,
+                        recordIdSlot: 5,
+                        fields: [],
+                        outputSlots: []
+                      }
+                    },
+                    innerStage: {
+                      stage: 'project',
+                      planNodeId: 3,
+                      nReturned: 7,
+                      executionTimeMillisEstimate: 0,
+                      opens: 7,
+                      closes: 1,
+                      saveState: 1,
+                      restoreState: 1,
+                      isEOF: 1,
+                      projections: {
+                        '14': 'if (getArraySize (s12) > 0, s12, [null]) '
+                      },
+                      inputStage: {
+                        stage: 'group',
+                        planNodeId: 3,
+                        nReturned: 7,
+                        executionTimeMillisEstimate: 0,
+                        opens: 7,
+                        closes: 1,
+                        saveState: 1,
+                        restoreState: 1,
+                        isEOF: 1,
+                        groupBySlots: [],
+                        expressions: { '12': 'addToSet (s10) ' },
+                        mergingExprs: { '13': 'aggSetUnion (s13) ' },
+                        usedDisk: false,
+                        numSpills: 0,
+                        spilledRecords: 0,
+                        spilledDataStorageSize: 0,
+                        inputStage: {
+                          stage: 'unwind',
+                          planNodeId: 3,
+                          nReturned: 7,
+                          executionTimeMillisEstimate: 0,
+                          opens: 7,
+                          closes: 7,
+                          saveState: 1,
+                          restoreState: 1,
+                          isEOF: 1,
+                          inputSlot: 9,
+                          outSlot: 10,
+                          outIndexSlot: 11,
+                          preserveNullAndEmptyArrays: 1,
+                          inputStage: {
+                            stage: 'project',
+                            planNodeId: 3,
+                            nReturned: 7,
+                            executionTimeMillisEstimate: 0,
+                            opens: 7,
+                            closes: 7,
+                            saveState: 1,
+                            restoreState: 1,
+                            isEOF: 1,
+                            projections: { '9': 'getField (s6, "_id") ' },
+                            inputStage: {
+                              stage: 'limit',
+                              planNodeId: 3,
+                              nReturned: 7,
+                              executionTimeMillisEstimate: 0,
+                              opens: 7,
+                              closes: 7,
+                              saveState: 1,
+                              restoreState: 1,
+                              isEOF: 1,
+                              limit: 1,
+                              inputStage: {
+                                stage: 'coscan',
+                                planNodeId: 3,
+                                nReturned: 7,
+                                executionTimeMillisEstimate: 0,
+                                opens: 7,
+                                closes: 7,
+                                saveState: 1,
+                                restoreState: 1,
+                                isEOF: 0
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    stage: 'nlj',
+                    planNodeId: 3,
+                    nReturned: 3,
+                    executionTimeMillisEstimate: 0,
+                    opens: 1,
+                    closes: 1,
+                    saveState: 1,
+                    restoreState: 1,
+                    isEOF: 1,
+                    totalDocsExamined: 3,
+                    totalKeysExamined: 0,
+                    collectionScans: 1,
+                    collectionSeeks: 0,
+                    indexScans: 0,
+                    indexSeeks: 0,
+                    indexesUsed: [],
+                    innerOpens: 3,
+                    innerCloses: 1,
+                    outerProjects: [ Long("7") ],
+                    outerCorrelated: [ Long("7") ],
+                    outerStage: {
+                      stage: 'scan',
+                      planNodeId: 3,
+                      nReturned: 3,
+                      executionTimeMillisEstimate: 0,
+                      opens: 1,
+                      closes: 1,
+                      saveState: 1,
+                      restoreState: 1,
+                      isEOF: 1,
+                      numReads: 3,
+                      recordSlot: 7,
+                      recordIdSlot: 8,
+                      fields: [],
+                      outputSlots: []
+                    },
+                    innerStage: {
+                      stage: 'group',
+                      planNodeId: 3,
+                      nReturned: 3,
+                      executionTimeMillisEstimate: 0,
+                      opens: 3,
+                      closes: 1,
+                      saveState: 1,
+                      restoreState: 1,
+                      isEOF: 1,
+                      groupBySlots: [],
+                      expressions: { '20': 'addToSet (s19) ' },
+                      mergingExprs: { '21': 'aggSetUnion (s21) ' },
+                      usedDisk: false,
+                      numSpills: 0,
+                      spilledRecords: 0,
+                      spilledDataStorageSize: 0,
+                      inputStage: {
+                        stage: 'nlj',
+                        planNodeId: 3,
+                        nReturned: 3,
+                        executionTimeMillisEstimate: 0,
+                        opens: 3,
+                        closes: 3,
+                        saveState: 1,
+                        restoreState: 1,
+                        isEOF: 1,
+                        totalDocsExamined: 0,
+                        totalKeysExamined: 0,
+                        collectionScans: 0,
+                        collectionSeeks: 0,
+                        indexScans: 0,
+                        indexSeeks: 0,
+                        indexesUsed: [],
+                        innerOpens: 3,
+                        innerCloses: 3,
+                        outerProjects: [],
+                        outerCorrelated: [ Long("15") ],
+                        outerStage: {
+                          stage: 'project',
+                          planNodeId: 3,
+                          nReturned: 3,
+                          executionTimeMillisEstimate: 0,
+                          opens: 3,
+                          closes: 3,
+                          saveState: 1,
+                          restoreState: 1,
+                          isEOF: 1,
+                          projections: {
+                            '15': 'fillEmpty (getField (s7, "movie"), null) '
+                          },
+                          inputStage: {
+                            stage: 'limit',
+                            planNodeId: 3,
+                            nReturned: 3,
+                            executionTimeMillisEstimate: 0,
+                            opens: 3,
+                            closes: 3,
+                            saveState: 1,
+                            restoreState: 1,
+                            isEOF: 1,
+                            limit: 1,
+                            inputStage: {
+                              stage: 'coscan',
+                              planNodeId: 3,
+                              nReturned: 3,
+                              executionTimeMillisEstimate: 0,
+                              opens: 3,
+                              closes: 3,
+                              saveState: 1,
+                              restoreState: 1,
+                              isEOF: 0
+                            }
+                          }
+                        },
+                        innerStage: {
+                          stage: 'branch',
+                          planNodeId: 3,
+                          nReturned: 3,
+                          executionTimeMillisEstimate: 0,
+                          opens: 3,
+                          closes: 3,
+                          saveState: 1,
+                          restoreState: 1,
+                          isEOF: 1,
+                          numTested: 3,
+                          thenBranchOpens: 0,
+                          thenBranchCloses: 0,
+                          elseBranchOpens: 3,
+                          elseBranchCloses: 3,
+                          filter: 'isArray (s15) ',
+                          thenSlots: [ Long("18") ],
+                          elseSlots: [ Long("15") ],
+                          outputSlots: [ Long("19") ],
+                          thenStage: {
+                            stage: 'union',
+                            planNodeId: 3,
+                            nReturned: 0,
+                            executionTimeMillisEstimate: 0,
+                            opens: 0,
+                            closes: 0,
+                            saveState: 1,
+                            restoreState: 1,
+                            isEOF: 0,
+                            inputSlots: [ Long("16"), Long("15") ],
+                            outputSlots: [ Long("18") ],
+                            inputStages: [
+                              {
+                                stage: 'unwind',
+                                planNodeId: 3,
+                                nReturned: 0,
+                                executionTimeMillisEstimate: 0,
+                                opens: 0,
+                                closes: 0,
+                                saveState: 1,
+                                restoreState: 1,
+                                isEOF: 0,
+                                inputSlot: 15,
+                                outSlot: 16,
+                                outIndexSlot: 17,
+                                preserveNullAndEmptyArrays: 1,
+                                inputStage: {
+                                  stage: 'limit',
+                                  planNodeId: 3,
+                                  nReturned: 0,
+                                  executionTimeMillisEstimate: 0,
+                                  opens: 0,
+                                  closes: 0,
+                                  saveState: 1,
+                                  restoreState: 1,
+                                  isEOF: 0,
+                                  limit: 1,
+                                  inputStage: {
+                                    stage: 'coscan',
+                                    planNodeId: 3,
+                                    nReturned: 0,
+                                    executionTimeMillisEstimate: 0,
+                                    opens: 0,
+                                    closes: 0,
+                                    saveState: 1,
+                                    restoreState: 1,
+                                    isEOF: 0
+                                  }
+                                }
+                              },
+                              {
+                                stage: 'limit',
+                                planNodeId: 3,
+                                nReturned: 0,
+                                executionTimeMillisEstimate: 0,
+                                opens: 0,
+                                closes: 0,
+                                saveState: 1,
+                                restoreState: 1,
+                                isEOF: 0,
+                                limit: 1,
+                                inputStage: {
+                                  stage: 'coscan',
+                                  planNodeId: 3,
+                                  nReturned: 0,
+                                  executionTimeMillisEstimate: 0,
+                                  opens: 0,
+                                  closes: 0,
+                                  saveState: 1,
+                                  restoreState: 1,
+                                  isEOF: 0
+                                }
+                              }
+                            ]
+                          },
+                          elseStage: {
+                            stage: 'limit',
+                            planNodeId: 3,
+                            nReturned: 3,
+                            executionTimeMillisEstimate: 0,
+                            opens: 3,
+                            closes: 3,
+                            saveState: 1,
+                            restoreState: 1,
+                            isEOF: 1,
+                            limit: 1,
+                            inputStage: {
+                              stage: 'coscan',
+                              planNodeId: 3,
+                              nReturned: 3,
+                              executionTimeMillisEstimate: 0,
+                              opens: 3,
+                              closes: 3,
+                              saveState: 1,
+                              restoreState: 1,
+                              isEOF: 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          allPlansExecution: []
+        }
+      },
+      nReturned: Long("7"),
+      executionTimeMillisEstimate: Long("0")
+    },
+    {
+      '$project': {
+        title: true,
+        numReviews: { '$size': [ '$reviews' ] },
+        _id: false
+      },
+      nReturned: Long("7"),
+      executionTimeMillisEstimate: Long("0")
+    },
+    {
+      '$sort': { sortKey: { title: 1 } },
+      totalDataSizeSortedBytesEstimate: Long("1783"),
+      usedDisk: false,
+      spills: Long("0"),
+      nReturned: Long("7"),
+      executionTimeMillisEstimate: Long("0")
+    }
+  ],
+  serverInfo: {
+    host: 'b8d990f7be43',
+    port: 27017,
+    version: '6.0.5',
+    gitVersion: 'c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  command: {
+    aggregate: 'movies',
+    pipeline: [
+      {
+        '$lookup': {
+          from: 'reviews',
+          localField: '_id',
+          foreignField: 'movie',
+          as: 'reviews'
+        }
+      },
+      {
+        '$project': { _id: 0, title: 1, numReviews: { '$size': '$reviews' } }
+      },
+      { '$sort': { title: 1 } }
+    ],
+    cursor: {},
+    '$db': 'movieDB'
+  },
+  ok: 1
+}

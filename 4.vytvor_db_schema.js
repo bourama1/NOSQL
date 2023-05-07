@@ -73,7 +73,7 @@ db.createCollection("movies", {
             title: {
                bsonType: "string",
                description: "'title' must be a string and is required",
-               pattern: "^[A-z ,.'-]+$",
+               pattern: "^[0-9A-z ,.'-]+$",
                maxLength: 30
             }
          }

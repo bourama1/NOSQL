@@ -1,4 +1,19 @@
-//První dotaz
-db.movies.find({ Release_Date: { $lt: new Date('2003-06-01') } })).count()
-//Druhý dotaz
-db.movies.find({ Release_Date: { $lt: new Date((new Date()) - 1000 * 60 * 60 * 24 * 365 * 20) } }).count()
+// Prvni dotaz
+db.movies.find({ releaseDate: { $lt: new Date(Date.now() - 20 * 365 * 24 * 60 * 60 * 1000) } }).count()
+
+// Druhy dotaz
+db.movies.aggregate([
+    {
+        $match: {
+            releaseDate: { $lt: new Date(Date.now() - 20 * 365 * 24 * 60 * 60 * 1000) }
+        }
+    },
+    {
+        $count: "total"
+    }
+])
+
+//Explain
+var result = db.movies.find({ releaseDate: { $lt: new Date(Date.now() - 20 * 365 * 24 * 60 * 60 * 1000) } }).explain("executionStats");
+result.executionStats.executionTimeMillis;
+result.executionStats.totalDocsExamined;

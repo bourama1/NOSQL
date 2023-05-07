@@ -1,0 +1,85 @@
+Vysledek:
+[
+  {
+    _id: ObjectId("6457a94544a9dbef5c0d385e"),
+    averageRating: 8.6,
+    director: ObjectId("6457a94444a9dbef5c0d3854"),
+    releaseDate: ISODate("2012-09-06T00:00:00.000Z"),
+    title: 'Dotaz 2012'
+  },
+  {
+    _id: ObjectId("6457a94544a9dbef5c0d385f"),
+    averageRating: 4.5,
+    director: ObjectId("6457a94444a9dbef5c0d3855"),
+    releaseDate: ISODate("2012-06-06T00:00:00.000Z"),
+    title: 'Taky'
+  }
+]
+
+Srovnani dotazu:
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+
+Exekucni plan prvniho dotazu:
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'movieDB.movies',
+    indexFilterSet: false,
+    parsedQuery: {
+      '$and': [
+        { releaseDate: { '$lt': ISODate("2013-01-01T00:00:00.000Z") } },
+        {
+          releaseDate: { '$gte': ISODate("2012-01-01T00:00:00.000Z") }
+        }
+      ]
+    },
+    queryHash: 'A841C030',
+    planCacheKey: 'A841C030',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      stage: 'COLLSCAN',
+      filter: {
+        '$and': [
+          {
+            releaseDate: { '$lt': ISODate("2013-01-01T00:00:00.000Z") }
+          },
+          {
+            releaseDate: { '$gte': ISODate("2012-01-01T00:00:00.000Z") }
+          }
+        ]
+      },
+      direction: 'forward'
+    },
+    rejectedPlans: []
+  },
+  command: {
+    find: 'movies',
+    filter: {
+      releaseDate: {
+        '$gte': ISODate("2012-01-01T00:00:00.000Z"),
+        '$lt': ISODate("2013-01-01T00:00:00.000Z")
+      }
+    },
+    '$db': 'movieDB'
+  },
+  serverInfo: {
+    host: 'b8d990f7be43',
+    port: 27017,
+    version: '6.0.5',
+    gitVersion: 'c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}

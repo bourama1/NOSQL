@@ -1,8 +1,23 @@
-//První dotaz
+// Prvni dotaz
 db.movies.find({
-    "$expr": {
-        "$eq": [{ "$year": "$timestamp" }, 2012]
+    $expr: {
+        $eq: [{ $year: "$releaseDate" }, 2012]
     }
 })
-//Druhý dotaz
-db.movies.find({ Release_Date: { $lt: new Date('2011-12-31'), $gt: new Date('2013-01-01') } }))
+
+// Druhy dotaz
+db.movies.find({
+    releaseDate: {
+        $gte: ISODate("2012-01-01"),
+        $lt: ISODate("2013-01-01")
+    }
+})
+
+//Explain
+var result = db.movies.find({ $expr: { $eq: [{ $year: "$releaseDate" }, 2012] } }).explain("executionStats");
+result.executionStats.executionTimeMillis;
+result.executionStats.totalDocsExamined;
+
+var result = db.movies.find({ releaseDate: { $gte: ISODate("2012-01-01"), $lt: ISODate("2013-01-01") } }).explain("executionStats");
+result.executionStats.executionTimeMillis;
+result.executionStats.totalDocsExamined;

@@ -1,0 +1,71 @@
+Vysledek:
+3
+
+Srovnani dotazu:
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+
+Exekucni plan prvniho dotazu:
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'movieDB.movies',
+    indexFilterSet: false,
+    parsedQuery: { releaseDate: { '$lt': ISODate("2003-05-12T14:53:11.981Z") } },
+    queryHash: '642F320D',
+    planCacheKey: '642F320D',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      stage: 'COLLSCAN',
+      filter: { releaseDate: { '$lt': ISODate("2003-05-12T14:53:11.981Z") } },
+      direction: 'forward'
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 3,
+    executionTimeMillis: 0,
+    totalKeysExamined: 0,
+    totalDocsExamined: 7,
+    executionStages: {
+      stage: 'COLLSCAN',
+      filter: { releaseDate: { '$lt': ISODate("2003-05-12T14:53:11.981Z") } },
+      nReturned: 3,
+      executionTimeMillisEstimate: 0,
+      works: 9,
+      advanced: 3,
+      needTime: 5,
+      needYield: 0,
+      saveState: 0,
+      restoreState: 0,
+      isEOF: 1,
+      direction: 'forward',
+      docsExamined: 7
+    }
+  },
+  command: {
+    find: 'movies',
+    filter: { releaseDate: { '$lt': ISODate("2003-05-12T14:53:11.981Z") } },
+    '$db': 'movieDB'
+  },
+  serverInfo: {
+    host: 'b8d990f7be43',
+    port: 27017,
+    version: '6.0.5',
+    gitVersion: 'c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  ok: 1
+}

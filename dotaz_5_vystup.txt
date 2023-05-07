@@ -1,0 +1,112 @@
+Vysledek:
+[
+  { averageRating: 3.3, title: 'sed pede.' },
+  { averageRating: 4.5, title: 'Taky' },
+  { averageRating: 5.4, title: 'Proin' },
+  { averageRating: 6.1, title: 'blandit at,' },
+  { averageRating: 6.6, title: 'adipiscing' }
+]
+
+Srovnani dotazu:
+Prvni dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+Druhy dotaz ma executionTimeMillis = 0 a totalDocsExamined = 7
+
+Exekucni plan:
+{
+  explainVersion: '1',
+  stages: [
+    {
+      '$cursor': {
+        queryPlanner: {
+          namespace: 'movieDB.movies',
+          indexFilterSet: false,
+          parsedQuery: {},
+          queryHash: 'A6E9D2CD',
+          planCacheKey: 'A6E9D2CD',
+          maxIndexedOrSolutionsReached: false,
+          maxIndexedAndSolutionsReached: false,
+          maxScansToExplodeReached: false,
+          winningPlan: {
+            stage: 'PROJECTION_SIMPLE',
+            transformBy: { averageRating: true, title: true, _id: false },
+            inputStage: { stage: 'COLLSCAN', direction: 'forward' }
+          },
+          rejectedPlans: []
+        },
+        executionStats: {
+          executionSuccess: true,
+          nReturned: 7,
+          executionTimeMillis: 0,
+          totalKeysExamined: 0,
+          totalDocsExamined: 7,
+          executionStages: {
+            stage: 'PROJECTION_SIMPLE',
+            nReturned: 7,
+            executionTimeMillisEstimate: 0,
+            works: 9,
+            advanced: 7,
+            needTime: 1,
+            needYield: 0,
+            saveState: 1,
+            restoreState: 1,
+            isEOF: 1,
+            transformBy: { averageRating: true, title: true, _id: false },
+            inputStage: {
+              stage: 'COLLSCAN',
+              nReturned: 7,
+              executionTimeMillisEstimate: 0,
+              works: 9,
+              advanced: 7,
+              needTime: 1,
+              needYield: 0,
+              saveState: 1,
+              restoreState: 1,
+              isEOF: 1,
+              direction: 'forward',
+              docsExamined: 7
+            }
+          },
+          allPlansExecution: []
+        }
+      },
+      nReturned: Long("7"),
+      executionTimeMillisEstimate: Long("0")
+    },
+    {
+      '$sort': { sortKey: { averageRating: 1, title: 1 }, limit: Long("5") },
+      totalDataSizeSortedBytesEstimate: Long("1435"),
+      usedDisk: false,
+      spills: Long("0"),
+      nReturned: Long("5"),
+      executionTimeMillisEstimate: Long("0")
+    }
+  ],
+  serverInfo: {
+    host: 'b8d990f7be43',
+    port: 27017,
+    version: '6.0.5',
+    gitVersion: 'c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600
+  },
+  command: {
+    aggregate: 'movies',
+    pipeline: [
+      { '$match': {} },
+      { '$project': { _id: 0, title: 1, averageRating: 1 } },
+      { '$sort': { averageRating: 1, title: 1 } },
+      { '$limit': 5 }
+    ],
+    cursor: {},
+    '$db': 'movieDB'
+  },
+  ok: 1
+}
