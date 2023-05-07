@@ -1,1 +1,191 @@
-test
+Actors
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'surname',
+            description: "'surname' must be a string only from letters and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'required',
+        specifiedAs: { required: [ 'firstname', 'surname' ] },
+        missingProperties: [ 'firstname', 'surname' ]
+      }
+    ]
+
+Directors
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'surname',
+            description: "'surname' must be a string only from letters and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'firstname',
+            description: "'firstname' must be a string only from letters and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+Movies
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'releaseDate',
+            description: "'releaseDate' must be a Date and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'averageRating',
+            description: "'averageRating' must be a double from 0 to 9.9 and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+Casts
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'movie',
+            description: "'movie' must be a movie id and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'required',
+        specifiedAs: { required: [ 'actor', 'movie' ] },
+        missingProperties: [ 'movie' ]
+      }
+    ]
+
+Addresses
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'country',
+            description: "'country' must be a string and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'required',
+        specifiedAs: { required: [ 'country', 'city', 'street', 'houseNumber' ] },
+        missingProperties: [ 'street' ]
+      }
+    ]
+
+Users
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'password',
+            description: "'password' must be a string with min 8 characters, from which is at least one number, special char, small and big letter and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'required',
+        specifiedAs: { required: [ 'email', 'username', 'password', 'address' ] },
+        missingProperties: [ 'address' ]
+      }
+    ]
+
+3.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'email',
+            description: "'email' must be a string in standard email format and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+Reviews
+1.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'properties',
+        propertiesNotSatisfied: [
+          {
+            propertyName: 'movie',
+            description: "'movie' must be a movie id and is required",
+            details: [ [Object] ]
+          }
+        ]
+      }
+    ]
+
+2.
+schemaRulesNotSatisfied: [
+      {
+        operatorName: 'required',
+        specifiedAs: { required: [ 'movie', 'user', 'rating' ] },
+        missingProperties: [ 'rating' ]
+      }
+    ]

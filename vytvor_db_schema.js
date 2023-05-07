@@ -10,13 +10,13 @@ db.createCollection("actors", {
          properties: {
             firstname: {
                bsonType: "string",
-               description: "'firstname' must be a string and is required",
+               description: "'firstname' must be a string only from letters and is required",
                pattern: "^[A-Z][A-z']*$",
                maxLength: 30
             },
             surname: {
                bsonType: "string",
-               description: "'surname' must be a string and is required",
+               description: "'surname' must be a string only from letters and is required",
                pattern: "^[A-Z][A-z']*$",
                maxLength: 30
             }
@@ -34,13 +34,13 @@ db.createCollection("directors", {
          properties: {
             firstname: {
                bsonType: "string",
-               description: "'firstname' must be a string and is required",
+               description: "'firstname' must be a string only from letters and is required",
                pattern: "^[A-Z][A-z']*$",
                maxLength: 30
             },
             surname: {
                bsonType: "string",
-               description: "'surname' must be a string and is required",
+               description: "'surname' must be a string only from letters and is required",
                pattern: "^[A-Z][A-z']*$",
                maxLength: 30
             }
@@ -58,7 +58,7 @@ db.createCollection("movies", {
          properties: {
             averageRating: {
                bsonType: [ "double" ],
-               description: "'averageRating' must be a double and is required",
+               description: "'averageRating' must be a double from 0 to 9.9 and is required",
                minimum: 0,
                maximum: 9.9,
             },
@@ -72,7 +72,7 @@ db.createCollection("movies", {
             },
             title: {
                bsonType: "string",
-               description: "'title' must be a string and is required",
+               description: "'title' must be a string with letters, numbers and special characters and is required",
                pattern: "^[0-9A-z ,.'-]+$",
                maxLength: 30
             }
@@ -90,7 +90,7 @@ db.createCollection("casts", {
          properties: {
             role: {
                bsonType: "string",
-               description: "'role' must be a string",
+               description: "'role' must be a string with letters, numbers and special characters",
                pattern: "^[A-z 0-9,.'-]+$",
                maxLength: 30
             },
@@ -147,7 +147,7 @@ db.createCollection("users", {
          properties: {
             email: {
                bsonType: "string",
-               description: "'email' must be a string and is required",
+               description: "'email' must be a string in standard email format and is required",
                pattern: "^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\\.[a-zA-Z]{2,}$",
                maxLength: 30
             },
@@ -158,7 +158,7 @@ db.createCollection("users", {
             },
             password: {
                bsonType: "string",
-               description: "'password' must be a string and is required",
+               description: "'password' must be a string with min 8 characters, from which is at least one number, special char, small and big letter and is required",
                pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$",
                maxLength: 30
             },
@@ -180,13 +180,13 @@ db.createCollection("reviews", {
          properties: {
             text: {
                bsonType: "string",
-               description: "'text' must be a string",
-               pattern: "^[&_!@?=.* A-z0-9]+$",
+               description: "'text' must be a string with letters, numbers and special characters",
+               pattern: "^[,'&_!@?=.* A-z0-9]+$",
                maxLength: 100
             },
             rating: {
                bsonType: [ "double" ],
-               description: "'rating' must be a double and is required",
+               description: "'rating' must be a double from 0 to 9.9 and is required",
                minimum: 0,
                maximum: 9.9,
             },
