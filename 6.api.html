@@ -7,48 +7,87 @@
 </head>
 <body>
     <div class="border" id="page">
-        <h2>&lt;Vypůjčení knihy z knihovny&gt;</h2>
+        <h2>&lt;Registrace nového uživatele&gt;</h2>
         <ul>
             <li>
                 Popis
                 <ul>
-                    <li>Přidání informace o vypůjčené knize k zákazníkovi knihovny</li>
+                    <li>Registrace uživatele do webové aplikace</li>
                 </ul>
             </li>
             <li>
                 Vstupy
                 <ul>
                     <li>Emailová adresa uživatele</li>
-                    <li>Název knihy pro vypůjčení</li>
+                    <li>Heslo uživatele</li>
+                    <li>Přezdívka uživatele</li>
+                    <li>Adresa</li>
                 </ul>
             </li>
             <li>
                 Výstup
                 <ul>
-                    <li>Databázový záznam (dokument) uživatele</li>
+                    <li>Upozornění o úspěšné registraci</li>
+                    <li>Error message o emailu nebo heslu</li>
                 </ul>
             </li>
             <li>
                 Business logika
                 <ul>
-                    <li>Vyhledání uživatele dle emailové adresy v kolekci '<i>uzivatele</i>'</li>
-                    <li>Vyhledání knihy dle jejího názvu v kolekci '<i>knihy</i>'</li>
-                    <li>Nalezenému uživateli nastavit informaci o vypůjčené knize (například přidáním id knihy do atributu
-                        uživatele '<i>vypujcene_knihy</i>')
-                    </li>
-                    <li>Nastavení atributu knihy '<i>vypujceno</i>' na <i>true</i></li>
-                    <li>Změny v záznamu uživatele a knihy uložit do databáze</li>
-                    <li>Vrátit (/ vypsat) záznam uživatele s informací o vypůjčených knihách</li>
+                    <li>Kontrola validity jména a hesla</li>
+                    <li>V případě špatné validity vrátí Error message</li>
+                    <li>Přidání nového uživatele do kolekce '<i>User</i>'</li>
+                    <li>Přidání nové adresy do kolekce'<i>Adress</i>'</li>
+                    <li>Vrátit upozornění o úspěšné registraci</li>
                 </ul>
             </li>
             <li>
                 Skript
                 <ul>
-                    <li><a href="">api_1_vypujceni_knihy.js</a></li>
+                    <li><a href="">api_1_registrace.js</a></li>
                 </ul>
             </li>
         </ul>
-        <h2>&lt;example&gt;</h2>
+        <h2>&lt;Review&gt;</h2>
+        <ul>
+            <li>
+                Popis
+                <ul>
+                    <li>Uživatel podává recenzi na film</li>
+                </ul>
+            </li>
+            <li>
+                Vstupy
+                <ul>
+                    <li>Rating hodnocení od 0.0 do 10.0</li>
+                    <li>Komentář </li>
+                </ul>
+            </li>
+            <li>
+                Výstup
+                <ul>
+                    <li>Upozornění o úspěšném podání recenze</li>
+                </ul>
+            </li>
+            <li>
+                Business logika
+                <ul>
+                    <li>Vytvoření recenze v kolekci '<i>Review</i>'</li>
+                    <li>Vyhledání uživatele dle ID_user v kolekci '<i>User</i>'</li>
+                    <li>Vyhledání filmu dle ID_movie v kolekci '<i>Movie</i>'</li>
+                    <li>Recenzi přiřadit uživatele dle ID_user </li>
+                    <li>Recenzi přiřadit film dle ID_movie </li>
+                    <li>Upravení atributu filmu averageRating</li>
+                    <li>Změny v záznamu recenze a filmu uložit do databáze</li>
+                </ul>
+            </li>
+            <li>
+                Skript
+                <ul>
+                    <li><a href="">api_2_recenze.js</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
